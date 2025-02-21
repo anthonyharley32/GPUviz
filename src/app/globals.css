@@ -3,19 +3,44 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --background: #fafafa;
   --foreground: #171717;
+  --accent: #6b46c1;
+  --accent-foreground: #ffffff;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --accent: #8b5cf6;
+    --accent-foreground: #ffffff;
+    --muted: #27272a;
+    --muted-foreground: #a1a1aa;
   }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.accent-text {
+  color: var(--accent);
+}
+
+.accent-bg {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.muted-text {
+  color: var(--muted-foreground);
+}
+
+.muted-bg {
+  background-color: var(--muted);
 }
