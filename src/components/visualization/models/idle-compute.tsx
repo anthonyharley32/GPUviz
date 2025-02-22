@@ -90,20 +90,21 @@ export function IdleCompute({
   const particlesRef = useRef<Group>(null);
   const device = consumerDevices[selectedDevice];
 
-  // Animation for contribution visualization
+  // Remove animation for contribution visualization
   useFrame((state) => {
-    if (particlesRef.current && showContribution) {
-      particlesRef.current.children.forEach((particle) => {
-        const mesh = particle as Mesh<any, MeshStandardMaterial>;
-        const t = ((state.clock.elapsedTime + mesh.userData.offset) % 2) / 2;
-        const scale = 1 - t;
-        const y = t * 2;
+    // Remove particle animations
+    // if (particlesRef.current && showContribution) {
+    //   particlesRef.current.children.forEach((particle) => {
+    //     const mesh = particle as Mesh<any, MeshStandardMaterial>;
+    //     const t = ((state.clock.elapsedTime + mesh.userData.offset) % 2) / 2;
+    //     const scale = 1 - t;
+    //     const y = t * 2;
         
-        mesh.position.y = y;
-        mesh.scale.setScalar(scale * 0.2);
-        mesh.material.opacity = scale;
-      });
-    }
+    //     mesh.position.y = y;
+    //     mesh.scale.setScalar(scale * 0.2);
+    //     mesh.material.opacity = scale;
+    //   });
+    // }
   });
 
   // Calculate daily contribution

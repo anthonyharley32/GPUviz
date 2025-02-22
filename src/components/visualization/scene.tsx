@@ -157,6 +157,8 @@ export function VisualizationScene() {
                 showThermal={showThermal}
                 showPerformance={showPerformance}
                 load={load}
+                useGLTF={true}
+                modelPath="/sample.glb"
               />
               <GPU
                 model="H100"
@@ -165,6 +167,8 @@ export function VisualizationScene() {
                 showThermal={showThermal}
                 showPerformance={showPerformance}
                 load={load}
+                useGLTF={true}
+                modelPath="/sample.glb"
               />
               <GPU
                 model="MI300X"
@@ -173,6 +177,8 @@ export function VisualizationScene() {
                 showThermal={showThermal}
                 showPerformance={showPerformance}
                 load={load}
+                useGLTF={true}
+                modelPath="/sample.glb"
               />
             </>
           )}

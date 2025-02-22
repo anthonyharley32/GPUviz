@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { Mesh, Group, Shape, ExtrudeGeometry, Color, TextureLoader } from "three";
 import { useFrame, useLoader } from "@react-three/fiber";
 import { GPUModels, type GPUSpec } from "./gpu-models";
+import { GpuModel } from "./GpuModel";
 
 interface GPUProps {
   model?: keyof typeof GPUModels;
@@ -12,6 +13,8 @@ interface GPUProps {
   showThermal?: boolean;
   showPerformance?: boolean;
   load?: number; // 0-1 representing current load
+  useGLTF?: boolean;
+  modelPath?: string;
 }
 
 export function GPU({
@@ -21,7 +24,24 @@ export function GPU({
   showThermal = false,
   showPerformance = false,
   load = 0.5,
+  useGLTF = false,
+  modelPath,
 }: GPUProps) {
+  // If GLTF model is requested and path is provided, use the GLTF model
+  if (useGLTF && modelPath) {
+    return (
+      <GpuModel
+        model={model}
+        position={position}
+        rotation={rotation}
+        showThermal={showThermal}
+        showPerformance={showPerformance}
+        load={load}
+        modelPath={modelPath}
+      />
+    );
+  }
+
   const spec = GPUModels[model];
   const groupRef = useRef<Group>(null);
   const fanRefs = useRef<Mesh[]>([]);
@@ -39,19 +59,19 @@ export function GPU({
 
   useFrame((state, delta) => {
     if (groupRef.current) {
-      // Subtle floating animation
-      groupRef.current.position.y += Math.sin(state.clock.elapsedTime) * 0.0005;
+      // Remove floating animation
+      // groupRef.current.position.y += Math.sin(state.clock.elapsedTime) * 0.0005;
     }
 
-    // Fan rotation speed based on load
-    const fanSpeed = load * spec.fans.maxRPM / 60 * 2 * Math.PI;
-    fanRefs.current.forEach((fan) => {
-      if (fan) {
-        fan.rotation.z += delta * fanSpeed;
-      }
-    });
+    // Remove fan rotation animation
+    // const fanSpeed = load * spec.fans.maxRPM / 60 * 2 * Math.PI;
+    // fanRefs.current.forEach((fan) => {
+    //   if (fan) {
+    //     fan.rotation.z += delta * fanSpeed;
+    //   }
+    // });
 
-    // Update temperature based on load
+    // Keep temperature update for thermal visualization
     const targetTemp = 40 + (spec.power.maxTemp - 40) * load;
     setTemperature(prev => prev + (targetTemp - prev) * delta);
   });
